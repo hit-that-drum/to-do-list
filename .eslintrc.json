@@ -1,0 +1,72 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true,
+        "jest": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "airbnb",
+        "airbnb/hooks",
+        "airbnb-typescript",
+        "plugin:prettier/recommended",
+        "prettier"
+    ],
+    "overrides": [
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "project": "./tsconfig.json",
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+//        "tsconfigRootDir": "__dirname",
+        "createDefaultProgram": true
+    },
+    "plugins": [
+        "react",
+        "react-hooks",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "prettier/prettier": "error",
+        "react/prop-types": "off",
+        "react/require-default-props": "off",
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": [
+                    "**/*.stories.*",
+                    "**/.storybook/**/*.*"
+                ],
+                "peerDependencies": true
+            }
+        ],
+        "object-curly-newline": [
+            "error",
+            {
+                "ImportDeclaration": { "multiline": true }
+            }
+        ],
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+        "react/function-component-definition": [
+            2,
+            {
+                "namedComponents": "arrow-function",
+                "unnamedComponents": "arrow-function"
+            }
+        ],
+        "react/jsx-props-no-spreading": [1, { "custom": "ignore" }],
+        "no-unused-expressions": ["error", { "allowShortCircuit": true }],
+        "@typescript-eslint/no-unused-expressions": ["error", { "allowShortCircuit": true }]
+    },
+//    "ignorePatterns": ["dist/", "node_modules/", ".eslintrc.json"]
+    "ignorePatterns": ["dist/", "node_modules/"]
+}

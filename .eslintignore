@@ -1,0 +1,13 @@
+# node modules
+**/node_modules/**
+
+# build
+**/dist/**
+**/build/**
+
+# test
+*.test.{js,jsx,ts,tsx}
+*.spec.{js,jsx,ts,tsx}
+
+# config
+config-overrides.js

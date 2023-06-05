@@ -1,0 +1,16 @@
+{
+  "eslintIntegration": true,
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "jsxBracketSameLine": false,
+  "endOfLine": "if",
+  "printWidth": 130,
+  "quoteProps": "consistent",
+  "semi": true,
+  "tabWidth": 2,
+  "trailingComma": "none",
+  "useTabs": false,
+  "singleQuote": true,
+  "endOfLine": "lf",
+  "parser": "typescript"
+}
