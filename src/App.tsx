@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
-import Login from './Login';
-import AppCopy from './AppCopy';
+import Router from './Router';
 
 const App = () => {
   return (
     <div>
-      <Login />
-      {/* <AppCopy /> */}
+      <Router />
     </div>
   );
 };
