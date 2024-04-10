@@ -7,10 +7,11 @@ const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  position: sticky;
+  top: 0;
   min-width: 760px;
   max-width: 1585px;
-  height: 90px;
+  height: 80px;
   padding: 0 100px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   background-color: transparent;
