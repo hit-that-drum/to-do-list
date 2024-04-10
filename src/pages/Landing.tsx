@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import BackgroundImg from '../assets/background.png';
 
 const LandingWrapper = styled.div`
@@ -10,6 +11,7 @@ const LandingWrapper = styled.div`
     z-index: -100;
     background-size: cover;
     opacity: 50%;
+    width: 100%;
   }
   .first-box {
     position: absolute;
@@ -42,6 +44,7 @@ const Landing = () => {
           <span>나의 루틴을 실천하며 알찬 하루를 보내봐요 🍒</span>
         </div>
       </div>
+      <Footer />
     </LandingWrapper>
   );
 };
