@@ -3,19 +3,24 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import cherry from '../assets/cherry.svg';
 
-const HeaderWrapper = styled.div`
+const HeaderWrapper = styled.div<{ type: string }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
   top: 0;
+  left: 0;
   min-width: 760px;
   max-width: 1585px;
   height: 80px;
   padding: 0 100px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  background-color: transparent;
-
+  background-color: ${({ type }) => (type === 'landing' ? 'transparent' : '#ffffff')};
+  position: ${({ type }) => {
+    if (type === 'landing') return 'sticky';
+    if (type === 'login') return 'absolute';
+    return null;
+  }};
+  z-index: ${({ type }) => (type === 'login' ? 999 : 0)};
   .icon-description {
     display: flex;
     align-items: center;
@@ -42,7 +47,11 @@ const LoginBtn = styled.button`
   cursor: pointer;
 `;
 
-const Header = () => {
+interface HeaderProps {
+  type: string;
+}
+
+const Header = ({ type }: HeaderProps) => {
   const navigate = useNavigate();
 
   const handleLoginPage = () => {
@@ -50,7 +59,7 @@ const Header = () => {
   };
 
   return (
-    <HeaderWrapper>
+    <HeaderWrapper type={type}>
       <div className="icon-description">
         <Icon src={cherry} alt="header-icon" />
         <div>TO DO LIST</div>

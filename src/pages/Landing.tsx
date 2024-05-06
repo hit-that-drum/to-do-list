@@ -221,7 +221,7 @@ const Landing = () => {
 
   return (
     <LandingWrapper>
-      <Header />
+      <Header type="landing" />
       <ContentBox>
         <div className="first-section">
           <img src={LandingImg_1} alt="landing-img-1" />

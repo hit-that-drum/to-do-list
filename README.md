@@ -23,6 +23,8 @@
 (2024.04.10) ✅ background: transparent 적용
 <br>
 header가 제일 위로 올라오지 않는 현상 해결
+<br>
+(2024.05.06) ✅ 페이지 별로 헤더 백그라운드 색 변경
 
 <br>
 
@@ -52,6 +54,7 @@ content feature 개발
 <br>
 
 ### LOGIN
+(2024.05.06) ✅ 일단 똑같이 만들기
 
 ✔️ ID, PW input box
 <br>
@@ -61,10 +64,12 @@ content feature 개발
 <br>
 ✔️ PW 최소 글자 수 10byte 이상
 <br>
-yap
 
+<br>
 
+### TO DO LIST
 
+(2024.05.06) 스타일링 시작
 
 ✔️
 ✅
