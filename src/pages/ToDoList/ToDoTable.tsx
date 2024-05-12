@@ -1,8 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
+import TrafficLight from './TrafficLight';
+// import { FinalMockData } from '../../interfaces';
 
 const ToDoSection = styled.div``;
 
+const BottomSection = styled.div`
+  margin: 18px 0 30px;
+  display: flex;
+  .add-routine {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    padding: 4px 8px;
+    width: 118.5px;
+    color: #ffffff;
+    border: 1px solid rgb(7, 116, 61);
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background: rgb(7, 116, 61);
+    padding: 8px;
+    border-width: 1px;
+    font-weight: bold;
+    font-size: 13px;
+    white-space: pre-line;
+  }
+`;
+
+// const ToDoTable = ({ data }: FinalMockData) => {
 const ToDoTable = () => {
   return (
     <div>
@@ -42,22 +68,12 @@ const ToDoTable = () => {
           </button>
         </div>
       </ToDoSection>
-      <div>
-        <div>
-          <button type="button">
-            <p>+ 루틴 추가하기</p>
-          </button>
-        </div>
-        <div className="traffic-light-section">
-          <div>light 월</div>
-          <div>light 화</div>
-          <div>light 수</div>
-          <div>light 목</div>
-          <div>light 금</div>
-          <div>light 토</div>
-          <div>light 일</div>
-        </div>
-      </div>
+      <BottomSection>
+        <button type="button" className="add-routine">
+          <p>+ 루틴 추가하기 &nbsp;</p>
+        </button>
+        <TrafficLight />
+      </BottomSection>
     </div>
   );
 };
