@@ -1,5 +1,6 @@
-// import React, { useState } from 'react';
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useState } from 'react';
+// import React from 'react';
 import styled from 'styled-components';
 import ToDoTable from './ToDoTable';
 import Header from '../../components/Header';
@@ -8,8 +9,8 @@ import MorningFilterIcon from '../../assets/morning_filter_icon.svg';
 import AfternoonFilterIcon from '../../assets/afternoon_filter_icon.svg';
 import NightFilterIcon from '../../assets/night_filter_icon.svg';
 import ProfileSection from './ProfileSection';
-// import MockData from './mockdata';
-// import { FinalMockData } from '../../interfaces';
+import MockData from './mockdata';
+import { MockDataType } from '../../interfaces';
 
 const ToDoListWrapper = styled.div`
   position: relative;
@@ -97,8 +98,8 @@ const FilterButtonSection = styled.div`
 const RowTitleSection = styled.div``;
 
 const ToDoList = () => {
-  // console.log('data', MockData);
-  // const [data, setData] = useState<FinalMockData>(MockData);
+  console.log('data', MockData);
+  const [data, setData] = useState<MockDataType[]>(MockData);
 
   return (
     <ToDoListWrapper>
@@ -171,8 +172,8 @@ const ToDoList = () => {
               </button>
             </div>
           </RowTitleSection>
-          {/* <ToDoTable data={data} /> */}
-          <ToDoTable />
+          <ToDoTable data={data} />
+          {/* <ToDoTable /> */}
         </div>
       </Container>
     </ToDoListWrapper>

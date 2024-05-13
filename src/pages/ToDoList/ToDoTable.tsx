@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import TrafficLight from './TrafficLight';
-// import { FinalMockData } from '../../interfaces';
+import { MockDataType } from '../../interfaces';
 
 const ToDoSection = styled.div``;
 
@@ -28,8 +28,9 @@ const BottomSection = styled.div`
   }
 `;
 
-// const ToDoTable = ({ data }: FinalMockData) => {
-const ToDoTable = () => {
+const ToDoTable = ({ data }: { data: MockDataType[] }) => {
+  console.log('data', data);
+  // const ToDoTable = () => {
   return (
     <div>
       <ToDoSection>
@@ -72,7 +73,7 @@ const ToDoTable = () => {
         <button type="button" className="add-routine">
           <p>+ 루틴 추가하기 &nbsp;</p>
         </button>
-        <TrafficLight />
+        <TrafficLight data={data} />
       </BottomSection>
     </div>
   );

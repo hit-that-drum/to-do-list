@@ -1,22 +1,18 @@
 interface Routines {
-  order: number;
+  orderNo: number;
   description: string;
   status: boolean;
 }
 
 interface Todos {
-  order: number;
+  orderNo: number;
   description: string;
   status: boolean;
 }
 
-interface MockData {
+export interface MockDataType {
   day: string;
   id: number;
   routines?: Routines[];
   todos?: Todos[];
-}
-
-export interface FinalMockData {
-  data: MockData[];
 }

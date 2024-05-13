@@ -36,7 +36,7 @@ const mockdata = [
   {
     day: 'SAT',
     id: 6,
-    routins: [{ orderNo: 1, description: '아침 운동', status: false }],
+    routines: [{ orderNo: 1, description: '아침 운동', status: false }],
     todos: [
       { orderNo: 1, description: '모리노팡야', status: true },
       { orderNo: 2, description: '솜솜뜨개', status: true },

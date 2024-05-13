@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { MockDataType } from '@interfaces/todo.interface';
 
 const TrafficWrapper = styled.div`
   margin-left: 100px;
@@ -27,7 +28,8 @@ const TrafficWrapper = styled.div`
   }
 `;
 
-const TrafficLight = () => {
+const TrafficLight = ({ data }: { data: MockDataType[] }) => {
+  console.log('trafficlight', data);
   return (
     <TrafficWrapper>
       <div className="light-box">
