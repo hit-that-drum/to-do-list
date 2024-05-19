@@ -5,7 +5,6 @@ import { MockDataType } from '@interfaces/todo.interface';
 const TrafficWrapper = styled.div`
   margin-left: 100px;
   display: inline-flex;
-  -webkit-box-pack: center;
   justify-content: center;
   background: rgb(88, 94, 86);
   border: 1px solid rgb(119, 119, 119);
@@ -21,15 +20,16 @@ const TrafficWrapper = styled.div`
     border-image: initial;
   }
   .light-circle {
-    width: 28px;
-    height: 28px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     background-color: deeppink;
   }
 `;
 
 const TrafficLight = ({ data }: { data: MockDataType[] }) => {
-  console.log('trafficlight', data);
+  const aaa = data.map((el) => el.routines);
+  console.log('aaa', aaa);
   return (
     <TrafficWrapper>
       <div className="light-box">

@@ -95,7 +95,46 @@ const FilterButtonSection = styled.div`
     }
   }
 `;
-const RowTitleSection = styled.div``;
+const RowTitleSection = styled.div`
+  display: flex;
+  align-items: center;
+  height: 24px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  button {
+    all: unset;
+    cursor: pointer;
+  }
+  div {
+    padding-right: 5px;
+  }
+  div:nth-child(1) {
+    width: 130px;
+    margin-left: 32px;
+  }
+  div:nth-child(2) {
+    width: 250px;
+  }
+  div:nth-child(3) {
+    width: 310px;
+  }
+  .date-btn {
+    width: 40px;
+    height: 24px;
+    margin: 0px 2px;
+    border-radius: 8px;
+    background: rgb(38, 222, 129);
+    justify-content: center;
+    align-items: center;
+    p {
+      font-weight: bold;
+      font-size: 10px;
+      color: white;
+      white-space: pre-line;
+      text-align: center;
+    }
+  }
+`;
 
 const ToDoList = () => {
   console.log('data', MockData);
@@ -149,25 +188,25 @@ const ToDoList = () => {
             <div>시간/상황</div>
             <div>나의 하루</div>
             <div>
-              <button type="button">
+              <button className="date-btn" type="button">
                 <p>4/29</p>
               </button>
-              <button type="button">
+              <button className="date-btn" type="button">
                 <p>4/30</p>
               </button>
-              <button type="button">
+              <button className="date-btn" type="button">
                 <p>5/01</p>
               </button>
-              <button type="button">
+              <button className="date-btn" type="button">
                 <p>5/02</p>
               </button>
-              <button type="button">
+              <button className="date-btn" type="button">
                 <p>5/03</p>
               </button>
-              <button type="button">
+              <button className="date-btn" type="button">
                 <p>5/04</p>
               </button>
-              <button type="button">
+              <button className="date-btn" type="button">
                 <p>5/05</p>
               </button>
             </div>
