@@ -1,144 +1,91 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from 'react';
-// import React from 'react';
-import styled from 'styled-components';
+import React, { HtmlHTMLAttributes, useState } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
+import { MockDataType } from '@interfaces/todo.interface';
 import ToDoTable from './ToDoTable';
 import Header from '../../components/Header';
+import { ToDoListWrapper, Container, FilterButtonSection, RowTitleSection } from './indexStyle';
 import CalendarButtonIcon from '../../assets/calendar_button_icon.svg';
-import MorningFilterIcon from '../../assets/morning_filter_icon.svg';
-import AfternoonFilterIcon from '../../assets/afternoon_filter_icon.svg';
-import NightFilterIcon from '../../assets/night_filter_icon.svg';
+import MorningFilterInactiveIcon from '../../assets/morning_filter_inactive_icon.svg';
+import MorningFilterActiveIcon from '../../assets/morning_filter_active_icon.svg';
+import AfternoonFilterInactiveIcon from '../../assets/afternoon_filter_inactive_icon.svg';
+import AfternoonFilterActiveIcon from '../../assets/afternoon_filter_active_icon.svg';
+import NightFilterInactiveIcon from '../../assets/night_filter_inactive_icon.svg';
+import NightFilterActiveIcon from '../../assets/night_filter_active_icon.svg';
 import ProfileSection from './ProfileSection';
 import MockData from './mockdata';
-import { MockDataType } from '../../interfaces';
+// import { MockDataType, TfilterBtnState } from '../../interfaces';
 
-const ToDoListWrapper = styled.div`
-  position: relative;
-  background-color: rgb(251, 251, 251);
-`;
-const Container = styled.div`
-  border: 3px dashed blueviolet;
-  padding: 40px 80px;
-  .date-wrapper {
-    display: flex;
-    flex: 1 1 0%;
-    flex-flow: wrap;
-    justify-content: flex-start;
-    margin: 10px 0px;
-    font-size: 16px;
-    font-weight: bold;
-    font-size: 18px;
-    color: rgb(73, 77, 81);
-    white-space: pre-line;
-    button {
-      all: unset;
-      cursor: pointer;
-    }
-  }
-`;
-const FilterButtonSection = styled.div`
-  display: flex;
-  .time-filter-button {
-    width: 177px;
-    height: 35px;
-  }
-  .type-filter-button {
-    width: 129px;
-    height: 35px;
-  }
-  .time-filter-button,
-  .type-filter-button {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border: 0.5px solid rgb(220, 224, 228);
-    padding: 6.5px 12px 6.5px 16px;
-    border-radius: 15px;
-    box-sizing: border-box;
-    background: white;
-    margin-right: 13px;
-    button {
-      all: unset;
-      cursor: pointer;
-    }
-    p {
-      font-weight: bold;
-      font-size: 13px;
-      /* color: rgb(28, 172, 99); */
-      color: rgb(221, 224, 228);
-    }
-    img {
-      width: 20px;
-      height: 20px;
-    }
-  }
-  .all-type-todo-filter-button {
-    padding: 7px 12px;
-    display: flex;
-    flex-direction: row;
-    background-color: rgb(245, 246, 246);
-    border-radius: 5px;
-    align-items: center;
-    justify-content: center;
-    border: 0.5px solid rgb(203, 207, 211);
-    width: 120px;
-    height: 21px;
-    button {
-      all: unset;
-      cursor: pointer;
-    }
-    p {
-      font-weight: bold;
-      font-size: 13px;
-      /* color: rgb(28, 172, 99); */
-      color: rgb(221, 224, 228);
-    }
-  }
-`;
-const RowTitleSection = styled.div`
-  display: flex;
-  align-items: center;
-  height: 24px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  button {
-    all: unset;
-    cursor: pointer;
-  }
-  div {
-    padding-right: 5px;
-  }
-  div:nth-child(1) {
-    width: 130px;
-    margin-left: 32px;
-  }
-  div:nth-child(2) {
-    width: 250px;
-  }
-  div:nth-child(3) {
-    width: 310px;
-  }
-  .date-btn {
-    width: 40px;
-    height: 24px;
-    margin: 0px 2px;
-    border-radius: 8px;
-    background: rgb(38, 222, 129);
-    justify-content: center;
-    align-items: center;
-    p {
-      font-weight: bold;
-      font-size: 10px;
-      color: white;
-      white-space: pre-line;
-      text-align: center;
-    }
-  }
-`;
+interface TfilterBtnState {
+  timeFilter: 'ALLTIME' | 'MORNING' | 'AFTERNOON' | 'NIGHT';
+  typeFilter: 'ALLTYPE' | 'ROUTINE' | 'TODO';
+  allWeekRoutine: boolean;
+}
+
+const weekdayNumber = [1, 2, 3, 4, 5, 6, 7];
+const timeFilterButton = [
+  { name: 'ALLTIME', className: 'alltime', desc: '모든시간', activeImg: null, inactiveImg: null },
+  {
+    name: 'MORNING',
+    className: 'morning',
+    desc: null,
+    activeImg: MorningFilterActiveIcon,
+    inactiveImg: MorningFilterInactiveIcon
+  },
+  {
+    name: 'AFTERNOON',
+    className: 'afternoon',
+    desc: null,
+    activeImg: AfternoonFilterActiveIcon,
+    inactiveImg: AfternoonFilterInactiveIcon
+  },
+  { name: 'NIGHT', className: 'night', desc: null, activeImg: NightFilterActiveIcon, inactiveImg: NightFilterInactiveIcon }
+];
+const typeFilterButton = [
+  { name: 'ALLTYPE', className: 'alltype', desc: '모두' },
+  { name: 'ROUTINE', className: 'routine', desc: '루틴' },
+  { name: 'TODO', className: 'todo', desc: '투두' }
+];
 
 const ToDoList = () => {
-  console.log('data', MockData);
+  // console.log('data', MockData);
   const [data, setData] = useState<MockDataType[]>(MockData);
+  const [filterBtnState, setFilterBtnState] = useState<TfilterBtnState>({
+    timeFilter: 'ALLTIME',
+    typeFilter: 'ALLTYPE',
+    allWeekRoutine: false
+  });
+  const { timeFilter, typeFilter, allWeekRoutine } = filterBtnState;
+  const now = dayjs();
+
+  const handleChangeFilter = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const { name } = event.currentTarget;
+    if (name === 'ALLTIME' || name === 'MORNING' || name === 'AFTERNOON' || name === 'NIGHT') {
+      setFilterBtnState((prev) => {
+        return {
+          ...prev,
+          timeFilter: name
+        };
+      });
+    }
+    if (name === 'ALLTYPE' || name === 'ROUTINE' || name === 'TODO') {
+      setFilterBtnState((prev) => {
+        return {
+          ...prev,
+          typeFilter: name
+        };
+      });
+    }
+    if (name === 'ALLDAYTYPE') {
+      setFilterBtnState((prev) => {
+        return {
+          ...prev,
+          allWeekRoutine: !allWeekRoutine
+        };
+      });
+    }
+  };
 
   return (
     <ToDoListWrapper>
@@ -146,40 +93,50 @@ const ToDoList = () => {
       <Container>
         <ProfileSection />
         <div className="date-wrapper">
-          <div>2024년 05월 06일 - 05월 12일</div>
+          <div>{`${now.day(1).format('YYYY년 MM월 DD일')} - ${now.day(7).format('YYYY년 MM월 DD일')}`}</div>
           <button type="button">
             <img src={CalendarButtonIcon} alt="calendar-button-icon" />
           </button>
         </div>
         <div className="routine-table-wrapper">
-          <FilterButtonSection>
+          <FilterButtonSection timeFilter={timeFilter} typeFilter={typeFilter} allWeekRoutine={allWeekRoutine}>
             <div className="time-filter-button">
-              <button type="button">
-                <p>모든 시간</p>
-              </button>
-              <button type="button">
-                <img src={MorningFilterIcon} alt="morning" />
-              </button>
-              <button type="button">
-                <img src={AfternoonFilterIcon} alt="afternoon" />
-              </button>{' '}
-              <button type="button">
-                <img src={NightFilterIcon} alt="night" />
-              </button>
+              {timeFilterButton.map((el) => {
+                return (
+                  <button
+                    key={`${el.name}_timefilter`}
+                    type="button"
+                    name={el.name}
+                    onClick={(event) => handleChangeFilter(event)}
+                  >
+                    {el.desc ? <p className={el.className}>{el.desc}</p> : null}
+                    {el.activeImg && el.inactiveImg ? (
+                      <img
+                        src={timeFilter === el.name ? el.activeImg : el.inactiveImg}
+                        className={el.className}
+                        alt={el.className}
+                      />
+                    ) : null}
+                  </button>
+                );
+              })}
             </div>
             <div className="type-filter-button">
-              <button type="button">
-                <p>모두</p>
-              </button>
-              <button type="button">
-                <p>루틴</p>
-              </button>
-              <button type="button">
-                <p>투두</p>
-              </button>
+              {typeFilterButton.map((el) => {
+                return (
+                  <button
+                    key={`${el.desc}_typefilter`}
+                    type="button"
+                    name={el.name}
+                    onClick={(event) => handleChangeFilter(event)}
+                  >
+                    <p className={el.className}>{el.desc}</p>
+                  </button>
+                );
+              })}
             </div>
             <div className="all-type-todo-filter-button">
-              <button type="button">
+              <button type="button" name="ALLDAYTYPE" onClick={(event) => handleChangeFilter(event)}>
                 <p>모든 요일의 루틴 보기</p>
               </button>
             </div>
@@ -188,31 +145,16 @@ const ToDoList = () => {
             <div>시간/상황</div>
             <div>나의 하루</div>
             <div>
-              <button className="date-btn" type="button">
-                <p>4/29</p>
-              </button>
-              <button className="date-btn" type="button">
-                <p>4/30</p>
-              </button>
-              <button className="date-btn" type="button">
-                <p>5/01</p>
-              </button>
-              <button className="date-btn" type="button">
-                <p>5/02</p>
-              </button>
-              <button className="date-btn" type="button">
-                <p>5/03</p>
-              </button>
-              <button className="date-btn" type="button">
-                <p>5/04</p>
-              </button>
-              <button className="date-btn" type="button">
-                <p>5/05</p>
-              </button>
+              {weekdayNumber.map((el) => {
+                return (
+                  <button className="date-btn" type="button" key={`${el}_date`}>
+                    <p>{now.day(el).format('MM/DD')}</p>
+                  </button>
+                );
+              })}
             </div>
           </RowTitleSection>
           <ToDoTable data={data} />
-          {/* <ToDoTable /> */}
         </div>
       </Container>
     </ToDoListWrapper>
