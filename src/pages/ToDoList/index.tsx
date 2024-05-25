@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { HtmlHTMLAttributes, useState } from 'react';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { MockDataType } from '@interfaces/todo.interface';
 import ToDoTable from './ToDoTable';
 import Header from '../../components/Header';
