@@ -1,8 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { HtmlHTMLAttributes, useState } from 'react';
+import React, { useState } from 'react';
 import dayjs from 'dayjs';
-import { MockDataType } from '@interfaces/todo.interface';
+import { MockDataType, RoutinesTodos } from '@interfaces/todo.interface';
+import { TfilterBtnState } from '@interfaces/index.interface';
 import ToDoTable from './ToDoTable';
 import Header from '../../components/Header';
 import { ToDoListWrapper, Container, FilterButtonSection, RowTitleSection } from './indexStyle';
@@ -15,13 +16,13 @@ import NightFilterInactiveIcon from '../../assets/night_filter_inactive_icon.svg
 import NightFilterActiveIcon from '../../assets/night_filter_active_icon.svg';
 import ProfileSection from './ProfileSection';
 import MockData from './mockdata';
-// import { MockDataType, TfilterBtnState } from '../../interfaces';
 
-interface TfilterBtnState {
-  timeFilter: 'ALLTIME' | 'MORNING' | 'AFTERNOON' | 'NIGHT';
-  typeFilter: 'ALLTYPE' | 'ROUTINE' | 'TODO';
-  allWeekRoutine: boolean;
-}
+type MockDataTypeTemp = {
+  day: string;
+  id: number;
+  routines: RoutinesTodos[];
+  todos: RoutinesTodos[];
+}[];
 
 const weekdayNumber = [1, 2, 3, 4, 5, 6, 7];
 const timeFilterButton = [
@@ -49,8 +50,8 @@ const typeFilterButton = [
 ];
 
 const ToDoList = () => {
-  // console.log('data', MockData);
-  const [data, setData] = useState<MockDataType[]>(MockData);
+  console.log('data', MockData);
+  const [data, setData] = useState<MockDataType[]>(MockData as MockDataTypeTemp);
   const [filterBtnState, setFilterBtnState] = useState<TfilterBtnState>({
     timeFilter: 'ALLTIME',
     typeFilter: 'ALLTYPE',
@@ -92,70 +93,72 @@ const ToDoList = () => {
       <Header type="to-do-list" />
       <Container>
         <ProfileSection />
-        <div className="date-wrapper">
-          <div>{`${now.day(1).format('YYYY년 MM월 DD일')} - ${now.day(7).format('YYYY년 MM월 DD일')}`}</div>
-          <button type="button">
-            <img src={CalendarButtonIcon} alt="calendar-button-icon" />
-          </button>
+        <div className="calendar-filterbtn-wrapper">
+          <div className="date-wrapper">
+            <div>{`${now.day(1).format('YYYY년 MM월 DD일')} - ${now.day(7).format('YYYY년 MM월 DD일')}`}</div>
+            <button type="button">
+              <img src={CalendarButtonIcon} alt="calendar-button-icon" />
+            </button>
+          </div>
+          <div className="routine-table-wrapper">
+            <FilterButtonSection timeFilter={timeFilter} typeFilter={typeFilter} allWeekRoutine={allWeekRoutine}>
+              <div className="time-filter-button">
+                {timeFilterButton.map((el) => {
+                  return (
+                    <button
+                      key={`${el.name}_timefilter`}
+                      type="button"
+                      name={el.name}
+                      onClick={(event) => handleChangeFilter(event)}
+                    >
+                      {el.desc ? <p className={el.className}>{el.desc}</p> : null}
+                      {el.activeImg && el.inactiveImg ? (
+                        <img
+                          src={timeFilter === el.name ? el.activeImg : el.inactiveImg}
+                          className={el.className}
+                          alt={el.className}
+                        />
+                      ) : null}
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="type-filter-button">
+                {typeFilterButton.map((el) => {
+                  return (
+                    <button
+                      key={`${el.desc}_typefilter`}
+                      type="button"
+                      name={el.name}
+                      onClick={(event) => handleChangeFilter(event)}
+                    >
+                      <p className={el.className}>{el.desc}</p>
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="all-type-todo-filter-button">
+                <button type="button" name="ALLDAYTYPE" onClick={(event) => handleChangeFilter(event)}>
+                  <p>모든 요일의 루틴 보기</p>
+                </button>
+              </div>
+            </FilterButtonSection>
+          </div>
         </div>
-        <div className="routine-table-wrapper">
-          <FilterButtonSection timeFilter={timeFilter} typeFilter={typeFilter} allWeekRoutine={allWeekRoutine}>
-            <div className="time-filter-button">
-              {timeFilterButton.map((el) => {
-                return (
-                  <button
-                    key={`${el.name}_timefilter`}
-                    type="button"
-                    name={el.name}
-                    onClick={(event) => handleChangeFilter(event)}
-                  >
-                    {el.desc ? <p className={el.className}>{el.desc}</p> : null}
-                    {el.activeImg && el.inactiveImg ? (
-                      <img
-                        src={timeFilter === el.name ? el.activeImg : el.inactiveImg}
-                        className={el.className}
-                        alt={el.className}
-                      />
-                    ) : null}
-                  </button>
-                );
-              })}
-            </div>
-            <div className="type-filter-button">
-              {typeFilterButton.map((el) => {
-                return (
-                  <button
-                    key={`${el.desc}_typefilter`}
-                    type="button"
-                    name={el.name}
-                    onClick={(event) => handleChangeFilter(event)}
-                  >
-                    <p className={el.className}>{el.desc}</p>
-                  </button>
-                );
-              })}
-            </div>
-            <div className="all-type-todo-filter-button">
-              <button type="button" name="ALLDAYTYPE" onClick={(event) => handleChangeFilter(event)}>
-                <p>모든 요일의 루틴 보기</p>
-              </button>
-            </div>
-          </FilterButtonSection>
-          <RowTitleSection>
-            <div>시간/상황</div>
-            <div>나의 하루</div>
-            <div>
-              {weekdayNumber.map((el) => {
-                return (
-                  <button className="date-btn" type="button" key={`${el}_date`}>
-                    <p>{now.day(el).format('MM/DD')}</p>
-                  </button>
-                );
-              })}
-            </div>
-          </RowTitleSection>
-          <ToDoTable data={data} />
-        </div>
+        <RowTitleSection>
+          <div>시간/상황</div>
+          <div>나의 하루</div>
+          <div>
+            {weekdayNumber.map((el) => {
+              return (
+                <button className="date-btn" type="button" key={`${el}_date`}>
+                  <p>{now.day(el).format('MM/DD')}</p>
+                </button>
+              );
+            })}
+          </div>
+        </RowTitleSection>
+        <ToDoTable data={data} />
       </Container>
     </ToDoListWrapper>
   );

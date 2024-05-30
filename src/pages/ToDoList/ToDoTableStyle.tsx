@@ -19,37 +19,9 @@ export const ToDoSection = styled.div`
     margin-left: 12px;
     height: 38px;
   }
-  .timedetail-myday {
+  .routine-todo-wrapper {
     display: flex;
-    width: 390px;
-    border-color: rgb(220, 224, 228);
-    border-radius: 5px;
-    border-width: 1px;
-    .timedetail {
-      padding: 4px 8px;
-      width: 130px;
-      border: solid;
-      border-color: rgb(220, 224, 228);
-      border-radius: 5px 5px 0px 0px;
-      border-width: 1px;
-    }
-    .myday {
-      display: flex;
-      align-items: center;
-      padding: 4px 8px;
-      width: 260px;
-      border: solid;
-      border-color: rgb(38, 222, 129);
-      border-radius: 5px;
-      border-width: 3px;
-      img {
-        width: 20px;
-        height: 20px;
-      }
-      p {
-        margin-left: 3px;
-      }
-    }
+    flex-direction: column;
   }
   /* div:nth-child(3) {
     display: flex;
@@ -60,13 +32,62 @@ export const ToDoSection = styled.div`
   /* div:nth-child(4) {
     border: 1px solid salmon;
   } */
+`;
 
+export const TimeDetailMyDay = styled.div<{ routinesTodosIdx?: number; routinesTodosLen: number }>`
+  background-color: #ffffff;
+  display: flex;
+  width: 390px;
+  height: 40px;
+  border-radius: 5px;
+  font-size: 13px;
+  .timedetail {
+    padding: 4px 8px;
+    width: 130px;
+    border: 1px solid rgb(220, 224, 228);
+    border-radius: ${({ routinesTodosIdx, routinesTodosLen }) => {
+      if (routinesTodosIdx === 0) return `0 5px 0 0`;
+      if (routinesTodosIdx === routinesTodosLen) return '0 0 5px 0';
+      return '0';
+    }};
+  }
+  .myday {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    width: 260px;
+    border-radius: ${({ routinesTodosIdx, routinesTodosLen }) => {
+      if (routinesTodosIdx === 0) return `5px 5px 0 0`;
+      if (routinesTodosIdx === routinesTodosLen) return '0 0 5px 5px';
+      return '0';
+    }};
+    border-top: ${({ routinesTodosIdx }) => {
+      if (routinesTodosIdx === 0) return '3px solid rgb(38, 222, 129)';
+      return '1px solid rgb(220, 224, 228)';
+    }};
+    border-bottom: ${({ routinesTodosIdx, routinesTodosLen }) => {
+      if (routinesTodosIdx === routinesTodosLen) return '3px solid rgb(38, 222, 129)';
+      return '1px solid rgb(220, 224, 228)';
+    }};
+    border-left: 3px solid rgb(38, 222, 129);
+    border-right: 3px solid rgb(38, 222, 129);
+    img {
+      width: 20px;
+      height: 20px;
+    }
+    p {
+      margin-left: 3px;
+    }
+  }
+`;
+
+export const YoilWrapper = styled.div<{ routinesTodosIdx?: number; routinesTodosLen: number }>`
   .yoil {
     display: flex;
     margin: 0px 2px;
     flex-direction: column;
     /* padding: 5px 0px; */
-    height: 100%;
+    height: 38px;
     width: 38px;
     align-items: center;
     justify-content: center;
@@ -76,7 +97,12 @@ export const ToDoSection = styled.div`
     background-color: rgb(255, 255, 255);
     /* border-color: rgb(38, 222, 129) rgb(38, 222, 129) rgb(237, 239, 240); */
     border-color: rgb(237, 239, 240);
-    border-radius: 5px 5px 0px 0px;
+    border-radius: ${({ routinesTodosIdx, routinesTodosLen }) => {
+      if (routinesTodosIdx === 0) return `5px 5px 0 0`;
+      if (routinesTodosIdx === routinesTodosLen) return '0 0 5px 5px';
+      return '0';
+    }};
+    border-collapse: collapse;
   }
 `;
 

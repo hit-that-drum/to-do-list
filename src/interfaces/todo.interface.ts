@@ -1,18 +1,19 @@
-interface Routines {
-  orderNo: number;
-  description: string;
-  status: boolean;
-}
+type TaskType = 'ROUTINE' | 'TODO';
+type TimeType = 'MORNING' | 'AFTERNOON' | 'NIGHT' | null;
 
-interface Todos {
+export interface RoutinesTodos {
   orderNo: number;
+  taskType: TaskType;
+  timeType: TimeType;
+  appointedTime: string | null;
   description: string;
   status: boolean;
+  statusDesc: string | null;
 }
 
 export interface MockDataType {
   day: string;
   id: number;
-  routines?: Routines[];
-  todos?: Todos[];
+  routines?: RoutinesTodos[];
+  todos?: RoutinesTodos[];
 }

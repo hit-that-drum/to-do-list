@@ -4,63 +4,47 @@ import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { v4 as uuidv4 } from 'uuid';
 import TrafficLight from './TrafficLight';
-import { MockDataType } from '../../interfaces';
+import { MockDataType, RoutinesTodos } from '../../interfaces';
 import AddTodoImg from '../../assets/add-todo.png';
 import TodoImg from '../../assets/todo-img.svg';
-import { ToDoSection, BottomSection } from './ToDoTableStyle';
+import { ToDoSection, BottomSection, TimeDetailMyDay, YoilWrapper } from './ToDoTableStyle';
+
+interface TRoutinesTodos {
+  orderNo: number;
+  taskType: 'ROUTINE' | 'TODO';
+  timeType: 'MORNING' | 'AFTERNOON' | 'NIGHT' | null;
+  appointedTime: string | null;
+  description: string;
+  status: boolean;
+  statusDesc: string | null;
+}
 
 const ToDoTable = ({ data }: { data: MockDataType[] }) => {
-  console.log('table', data);
   const nowWeekNum = dayjs().day();
   const [tableData, setTableData] = useState(data[nowWeekNum - 1]);
   const { routines, todos } = tableData;
-  console.log('tableData', tableData);
+  const [routinesTodos, setRoutinesTodos] = useState<TRoutinesTodos[]>([]);
   const [numbering, setNumbering] = useState<number | null>(null);
+  // console.log('routinesTodos', routinesTodos, numbering);
   useEffect(() => {
+    const routinesData = routines ? [...routines] : [];
+    const todosData = todos ? [...todos] : [];
     const routinesLen = routines ? routines.length : 0;
     const todosLen = todos ? todos.length : 0;
     setNumbering(routinesLen + todosLen);
+    setRoutinesTodos([...routinesData, ...todosData]);
   }, [data, routines, todos]);
+
+  const handleStatusDesc = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const idx = Number(e.currentTarget.value);
+    const originStatus = routinesTodos[idx].status;
+    const dupArr = Array.from(routinesTodos);
+    dupArr[idx] = { ...dupArr[idx], status: !originStatus };
+    setRoutinesTodos(dupArr);
+  };
 
   return (
     <div>
-      {/* <ToDoSection>
-        <div className="numbering-wrapper">
-          <div>1</div>
-        </div>
-        <div className="timedetail-myday">
-          <button className="timedetail" type="button">
-            <p>5:30</p>
-          </button>
-          <button className="myday" type="button">
-            <img src={TodoImg} alt="todo-img" />
-            <p>기상시간 기록</p>
-          </button>
-        </div>
-        <div>
-          <button className="yoil" type="button">
-            <p>월</p>
-          </button>
-          <button className="yoil" type="button">
-            <p>화</p>
-          </button>
-          <button className="yoil" type="button">
-            <p>수</p>
-          </button>
-          <button className="yoil" type="button">
-            <p>목</p>
-          </button>
-          <button className="yoil" type="button">
-            <p>금</p>
-          </button>
-          <button className="yoil" type="button">
-            <p>토</p>
-          </button>
-          <button className="yoil" type="button">
-            <p>일</p>
-          </button>
-        </div>
-      </ToDoSection> */}
       <ToDoSection>
         <div>
           {Array(numbering)
@@ -70,6 +54,39 @@ const ToDoTable = ({ data }: { data: MockDataType[] }) => {
                 <div className="numbering" key={uuidv4()}>
                   <div>{idx + 1}</div>
                 </div>
+              );
+            })}
+        </div>
+        <div className="routine-todo-wrapper">
+          {routinesTodos?.map((el, idx) => {
+            const routinesTodosLen = routinesTodos.length - 1;
+            if (!el) return null;
+            return (
+              <TimeDetailMyDay key={uuidv4()} routinesTodosIdx={idx} routinesTodosLen={routinesTodosLen}>
+                <button className="timedetail" type="button">
+                  {el.appointedTime ? <p>{el.appointedTime}</p> : null}
+                </button>
+                <button className="myday" type="button">
+                  {el.taskType === 'TODO' ? <img src={TodoImg} alt="todo-img" /> : null}
+                  <p>{el.description}</p>
+                </button>
+              </TimeDetailMyDay>
+            );
+          })}
+        </div>
+        <div>
+          {Array(numbering)
+            .fill(1)
+            .map((el, idx) => {
+              const routinesTodosLen = routinesTodos.length - 1;
+              const statusEmoji = routinesTodos[idx]?.statusDesc ? routinesTodos[idx]?.statusDesc : '🍒';
+              if (!el) return null;
+              return (
+                <YoilWrapper key={uuidv4()} routinesTodosIdx={idx} routinesTodosLen={routinesTodosLen}>
+                  <button value={idx} className="yoil" type="button" onClick={(e) => handleStatusDesc(e)}>
+                    <p>{routinesTodos[idx]?.status ? statusEmoji : ''}</p>
+                  </button>
+                </YoilWrapper>
               );
             })}
         </div>

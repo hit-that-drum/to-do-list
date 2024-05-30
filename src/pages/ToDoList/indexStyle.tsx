@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-// import { TfilterBtnState } from '@interfaces/index.interface';
+import { TfilterBtnState } from '@interfaces/index.interface';
 
 export const ToDoListWrapper = styled.div`
   position: relative;
@@ -7,7 +7,6 @@ export const ToDoListWrapper = styled.div`
 `;
 
 export const Container = styled.div`
-  border: 3px dashed blueviolet;
   padding: 40px 80px;
   position: relative;
   .date-wrapper {
@@ -26,17 +25,18 @@ export const Container = styled.div`
       cursor: pointer;
     }
   }
+  .calendar-filterbtn-wrapper {
+    display: flex;
+    width: 850px;
+  }
+  .routine-table-wrapper {
+    display: flex;
+    align-items: center;
+  }
 `;
 
-export const FilterButtonSection = styled.div<{
-  timeFilter: 'ALLTIME' | 'MORNING' | 'AFTERNOON' | 'NIGHT';
-  typeFilter: 'ALLTYPE' | 'ROUTINE' | 'TODO';
-  allWeekRoutine: boolean;
-}>`
+export const FilterButtonSection = styled.div<TfilterBtnState>`
   display: flex;
-  position: absolute;
-  top: 36%;
-  left: 36%;
   .time-filter-button {
     width: 177px;
     height: 35px;
