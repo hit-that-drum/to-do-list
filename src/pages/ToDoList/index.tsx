@@ -24,7 +24,7 @@ type MockDataTypeTemp = {
   todos: RoutinesTodos[];
 }[];
 
-const weekdayNumber = [1, 2, 3, 4, 5, 6, 7];
+const weekdayNumber = [1, 2, 3, 4, 5, 6, 0];
 const timeFilterButton = [
   { name: 'ALLTIME', className: 'alltime', desc: '모든시간', activeImg: null, inactiveImg: null },
   {
@@ -50,7 +50,6 @@ const typeFilterButton = [
 ];
 
 const ToDoList = () => {
-  console.log('data', MockData);
   const [data, setData] = useState<MockDataType[]>(MockData as MockDataTypeTemp);
   const [filterBtnState, setFilterBtnState] = useState<TfilterBtnState>({
     timeFilter: 'ALLTIME',
@@ -59,6 +58,7 @@ const ToDoList = () => {
   });
   const { timeFilter, typeFilter, allWeekRoutine } = filterBtnState;
   const now = dayjs();
+  const [selectDay, setSelectDay] = useState<number | null>(now.day());
 
   const handleChangeFilter = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const { name } = event.currentTarget;
@@ -86,6 +86,10 @@ const ToDoList = () => {
         };
       });
     }
+  };
+
+  const handleChangeDate = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setSelectDay(Number(event.currentTarget.value));
   };
 
   return (
@@ -151,14 +155,20 @@ const ToDoList = () => {
           <div>
             {weekdayNumber.map((el) => {
               return (
-                <button className="date-btn" type="button" key={`${el}_date`}>
+                <button
+                  className="date-btn"
+                  type="button"
+                  key={`${el}_date`}
+                  value={el}
+                  onClick={(event) => handleChangeDate(event)}
+                >
                   <p>{now.day(el).format('MM/DD')}</p>
                 </button>
               );
             })}
           </div>
         </RowTitleSection>
-        <ToDoTable data={data} />
+        <ToDoTable data={data} selectDay={selectDay} filterBtnState={filterBtnState} />
       </Container>
     </ToDoListWrapper>
   );

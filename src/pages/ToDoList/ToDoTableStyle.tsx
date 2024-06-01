@@ -81,7 +81,11 @@ export const TimeDetailMyDay = styled.div<{ routinesTodosIdx?: number; routinesT
   }
 `;
 
-export const YoilWrapper = styled.div<{ routinesTodosIdx?: number; routinesTodosLen: number }>`
+export const YoilWrapper = styled.div<{
+  nowWeekNumMatched?: boolean;
+  routinesTodosIdx?: number;
+  routinesTodosLen: number;
+}>`
   .yoil {
     display: flex;
     margin: 0px 2px;
@@ -94,7 +98,7 @@ export const YoilWrapper = styled.div<{ routinesTodosIdx?: number; routinesTodos
     border-width: 0.5px 1px 1px;
     border-style: solid;
     border-image: initial;
-    background-color: rgb(255, 255, 255);
+    background-color: ${({ nowWeekNumMatched }) => (nowWeekNumMatched ? 'rgb(255, 255, 255)' : 'rgb(245, 245, 245)')};
     /* border-color: rgb(38, 222, 129) rgb(38, 222, 129) rgb(237, 239, 240); */
     border-color: rgb(237, 239, 240);
     border-radius: ${({ routinesTodosIdx, routinesTodosLen }) => {

@@ -1,6 +1,6 @@
 const mockdata = [
   {
-    day: 'MON',
+    day: '2024-05-27',
     id: 1,
     routines: [
       {
@@ -71,7 +71,7 @@ const mockdata = [
     ]
   },
   {
-    day: 'TUE',
+    day: '2024-05-28',
     id: 2,
     routines: [
       {
@@ -97,7 +97,7 @@ const mockdata = [
     ]
   },
   {
-    day: 'WED',
+    day: '2024-05-29',
     id: 3,
     routines: [
       {
@@ -141,7 +141,7 @@ const mockdata = [
     ]
   },
   {
-    day: 'THU',
+    day: '2024-05-30',
     id: 4,
     routines: [
       {
@@ -203,7 +203,7 @@ const mockdata = [
     ]
   },
   {
-    day: 'FRI',
+    day: '2024-05-31',
     id: 5,
     routines: [
       {
@@ -229,13 +229,13 @@ const mockdata = [
     ]
   },
   {
-    day: 'SAT',
+    day: '2024-06-01',
     id: 6,
     routines: [
       {
         orderNo: 1,
         taskType: 'ROUTINE',
-        timeType: '',
+        timeType: 'MORNING',
         appointedTime: null,
         description: '아침 운동',
         status: false,
@@ -246,7 +246,7 @@ const mockdata = [
       {
         orderNo: 1,
         taskType: 'TODO',
-        timeType: '',
+        timeType: 'AFTERNOON',
         appointedTime: null,
         description: '모리노팡야',
         status: true,
@@ -255,7 +255,7 @@ const mockdata = [
       {
         orderNo: 2,
         taskType: 'TODO',
-        timeType: '',
+        timeType: 'AFTERNOON',
         appointedTime: null,
         description: '솜솜뜨개',
         status: true,
@@ -264,7 +264,7 @@ const mockdata = [
       {
         orderNo: 3,
         taskType: 'TODO',
-        timeType: '',
+        timeType: 'AFTERNOON',
         appointedTime: null,
         description: '스터디 모각코 참여',
         status: true,
@@ -273,7 +273,7 @@ const mockdata = [
       {
         orderNo: 4,
         taskType: 'TODO',
-        timeType: '',
+        timeType: 'NIGHT',
         appointedTime: null,
         description: '옥동식 서교점',
         status: false,
@@ -282,7 +282,7 @@ const mockdata = [
       {
         orderNo: 5,
         taskType: 'TODO',
-        timeType: '',
+        timeType: 'NIGHT',
         appointedTime: null,
         description: '헤이주드',
         status: false,
@@ -291,7 +291,7 @@ const mockdata = [
     ]
   },
   {
-    day: 'SUN',
+    day: '2024-06-02',
     id: 7,
     routines: [
       {
