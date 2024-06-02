@@ -6,13 +6,13 @@ import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { v4 as uuidv4 } from 'uuid';
 import { TfilterBtnState } from '@interfaces/index.interface';
+import { MockDataType, RoutinesTodos } from '@interfaces/todo.interface';
 import TrafficLight from './TrafficLight';
-import { MockDataType, RoutinesTodos } from '../../interfaces';
 import AddTodoImg from '../../assets/add-todo.png';
 import TodoImg from '../../assets/todo-img.svg';
 import { ToDoSection, BottomSection, TimeDetailMyDay, YoilWrapper } from './ToDoTableStyle';
 
-interface TRoutinesTodos {
+export interface TRoutinesTodos {
   orderNo: number;
   taskType: 'ROUTINE' | 'TODO';
   timeType: 'MORNING' | 'AFTERNOON' | 'NIGHT' | null;
@@ -22,7 +22,7 @@ interface TRoutinesTodos {
   statusDesc: string | null;
 }
 
-interface TWeekTableData {
+export interface TWeekTableData {
   MON: TRoutinesTodos[];
   TUE: TRoutinesTodos[];
   WED: TRoutinesTodos[];
@@ -42,9 +42,21 @@ const ToDoTable = ({
   filterBtnState: TfilterBtnState;
 }) => {
   const [nowWeekNum, setNowWeekNum] = useState<number | null>(selectDay);
+  const [fullTableData, setFullTableData] = useState<TWeekTableData | null>(null);
   const [tableData, setTableData] = useState<TWeekTableData | null>(null);
-  const [routinesTodos, setRoutinesTodos] = useState<TRoutinesTodos[]>([]);
+  const [routinesTodos, setRoutinesTodos] = useState<RoutinesTodos[]>([]);
   const [numbering, setNumbering] = useState<number | null>(null);
+
+  const numToDate = (num: number | null) => {
+    if (num === 1) return 'MON';
+    if (num === 2) return 'TUE';
+    if (num === 3) return 'WED';
+    if (num === 4) return 'THU';
+    if (num === 5) return 'FRI';
+    if (num === 6) return 'SAT';
+    if (num === 0) return 'SUN';
+    return null;
+  };
 
   useEffect(() => {
     const weekTableData: TWeekTableData = {
@@ -58,93 +70,29 @@ const ToDoTable = ({
     };
     data.forEach((el) => {
       const weeknum = dayjs(el.day).day();
-      if (weeknum === 1) {
-        if (el.routines) {
-          for (let i = 0; i < el.routines.length; i += 1) {
-            weekTableData.MON.push(el.routines[i]);
-          }
-        }
-        if (el.todos) {
-          for (let i = 0; i < el.todos.length; i += 1) {
-            weekTableData.MON.push(el.todos[i]);
-          }
-        }
+      const numtodate = (wn: number | null) => {
+        if (wn === 1) return 'MON';
+        if (wn === 2) return 'TUE';
+        if (wn === 3) return 'WED';
+        if (wn === 4) return 'THU';
+        if (wn === 5) return 'FRI';
+        if (wn === 6) return 'SAT';
+        if (wn === 0) return 'SUN';
+        return 'MON';
+      };
+      const abc = numtodate(weeknum);
+      const def = numToDate(weeknum);
+      // console.log('www', numtodate(weeknum), numToDate(weeknum));
+      if (el.routines) {
+        el.routines.map((routine) => weekTableData[abc].push(routine));
       }
-      if (weeknum === 2) {
-        if (el.routines) {
-          for (let i = 0; i < el.routines.length; i += 1) {
-            weekTableData.TUE.push(el.routines[i]);
-          }
-        }
-        if (el.todos) {
-          for (let i = 0; i < el.todos.length; i += 1) {
-            weekTableData.TUE.push(el.todos[i]);
-          }
-        }
-      }
-      if (weeknum === 3) {
-        if (el.routines) {
-          for (let i = 0; i < el.routines.length; i += 1) {
-            weekTableData.WED.push(el.routines[i]);
-          }
-        }
-        if (el.todos) {
-          for (let i = 0; i < el.todos.length; i += 1) {
-            weekTableData.WED.push(el.todos[i]);
-          }
-        }
-      }
-      if (weeknum === 4) {
-        if (el.routines) {
-          for (let i = 0; i < el.routines.length; i += 1) {
-            weekTableData.THU.push(el.routines[i]);
-          }
-        }
-        if (el.todos) {
-          for (let i = 0; i < el.todos.length; i += 1) {
-            weekTableData.THU.push(el.todos[i]);
-          }
-        }
-      }
-      if (weeknum === 5) {
-        if (el.routines) {
-          for (let i = 0; i < el.routines.length; i += 1) {
-            weekTableData.FRI.push(el.routines[i]);
-          }
-        }
-        if (el.todos) {
-          for (let i = 0; i < el.todos.length; i += 1) {
-            weekTableData.FRI.push(el.todos[i]);
-          }
-        }
-      }
-      if (weeknum === 6) {
-        if (el.routines) {
-          for (let i = 0; i < el.routines.length; i += 1) {
-            weekTableData.SAT.push(el.routines[i]);
-          }
-        }
-        if (el.todos) {
-          for (let i = 0; i < el.todos.length; i += 1) {
-            weekTableData.SAT.push(el.todos[i]);
-          }
-        }
-      }
-      if (weeknum === 0) {
-        if (el.routines) {
-          for (let i = 0; i < el.routines.length; i += 1) {
-            weekTableData.SUN.push(el.routines[i]);
-          }
-        }
-        if (el.todos) {
-          for (let i = 0; i < el.todos.length; i += 1) {
-            weekTableData.SUN.push(el.todos[i]);
-          }
-        }
+      if (el.todos) {
+        el.todos.map((todo) => weekTableData[abc].push(todo));
       }
     });
-    console.log('weekTableData', weekTableData);
+    // console.log('weekTableData', weekTableData);
     setTableData(weekTableData);
+    setFullTableData(weekTableData);
   }, [data]);
 
   useEffect(() => {
@@ -152,69 +100,108 @@ const ToDoTable = ({
   }, [selectDay]);
 
   useEffect(() => {
-    if (nowWeekNum === 1) {
-      setNumbering(tableData ? tableData?.MON.length : 0);
-      setRoutinesTodos(tableData ? tableData.MON : []);
-    }
-    if (nowWeekNum === 2) {
-      setNumbering(tableData ? tableData?.TUE.length : 0);
-      setRoutinesTodos(tableData ? tableData.TUE : []);
-    }
-    if (nowWeekNum === 3) {
-      setNumbering(tableData ? tableData?.WED.length : 0);
-      setRoutinesTodos(tableData ? tableData.WED : []);
-    }
-    if (nowWeekNum === 4) {
-      setNumbering(tableData ? tableData?.THU.length : 0);
-      setRoutinesTodos(tableData ? tableData.THU : []);
-    }
-    if (nowWeekNum === 5) {
-      setNumbering(tableData ? tableData?.FRI.length : 0);
-      setRoutinesTodos(tableData ? tableData.FRI : []);
-    }
-    if (nowWeekNum === 6) {
-      setNumbering(tableData ? tableData?.SAT.length : 0);
-      setRoutinesTodos(tableData ? tableData.SAT : []);
-    }
-    if (nowWeekNum === 0) {
-      setNumbering(tableData ? tableData?.SUN.length : 0);
-      setRoutinesTodos(tableData ? tableData.SUN : []);
-    }
+    const numtodate = (wn: number | null) => {
+      if (wn === 1) return 'MON';
+      if (wn === 2) return 'TUE';
+      if (wn === 3) return 'WED';
+      if (wn === 4) return 'THU';
+      if (wn === 5) return 'FRI';
+      if (wn === 6) return 'SAT';
+      if (wn === 0) return 'SUN';
+      return 'MON';
+    };
+    const abc = numtodate(nowWeekNum);
+    setNumbering(tableData ? tableData?.[abc].length : 0);
+    setRoutinesTodos(tableData ? tableData?.[abc] : []);
   }, [nowWeekNum, tableData]);
 
   useEffect(() => {
-    console.log('aaaaaa', filterBtnState);
+    const numtodate = (wn: number | null) => {
+      if (wn === 1) return 'MON';
+      if (wn === 2) return 'TUE';
+      if (wn === 3) return 'WED';
+      if (wn === 4) return 'THU';
+      if (wn === 5) return 'FRI';
+      if (wn === 6) return 'SAT';
+      if (wn === 0) return 'SUN';
+      return 'MON';
+    };
+    const abc = numtodate(nowWeekNum);
+    const filterTableData = fullTableData?.[abc];
     if (filterBtnState.timeFilter === 'ALLTIME') {
-      setRoutinesTodos(routinesTodos);
-      setNumbering(routinesTodos.length);
+      console.log('alltime');
+      setNumbering(filterTableData ? filterTableData.length : 0);
+      setRoutinesTodos(filterTableData || []);
     } else if (filterBtnState.timeFilter === 'MORNING') {
-      const morning = routinesTodos.filter((el) => el.timeType === 'MORNING');
-      setRoutinesTodos(morning);
-      setNumbering(morning.length);
+      console.log('morning');
+      const filteredMorning = filterTableData?.filter((el) => el.timeType === 'MORNING');
+      console.log('AAA', filteredMorning);
+      setNumbering(filteredMorning ? filteredMorning.length : 0);
+      setRoutinesTodos(filteredMorning || []);
     } else if (filterBtnState.timeFilter === 'AFTERNOON') {
-      const afternoon = routinesTodos.filter((el) => el.timeType === 'AFTERNOON');
-      setRoutinesTodos(afternoon);
-      setNumbering(afternoon.length);
+      console.log('afternoon');
+      const filteredAfternoon = filterTableData?.filter((el) => el.timeType === 'AFTERNOON');
+      setNumbering(filteredAfternoon ? filteredAfternoon.length : 0);
+      setRoutinesTodos(filteredAfternoon || []);
     } else if (filterBtnState.timeFilter === 'NIGHT') {
-      const night = routinesTodos.filter((el) => el.timeType === 'NIGHT');
-      setRoutinesTodos(night);
-      setNumbering(night.length);
+      console.log('night');
+      const filteredNight = filterTableData?.filter((el) => el.timeType === 'NIGHT');
+      setNumbering(filteredNight ? filteredNight.length : 0);
+      setRoutinesTodos(filteredNight || []);
     }
+  }, [filterBtnState, fullTableData, nowWeekNum]);
+
+  useEffect(() => {
+    const numtodate = (wn: number | null) => {
+      if (wn === 1) return 'MON';
+      if (wn === 2) return 'TUE';
+      if (wn === 3) return 'WED';
+      if (wn === 4) return 'THU';
+      if (wn === 5) return 'FRI';
+      if (wn === 6) return 'SAT';
+      if (wn === 0) return 'SUN';
+      return 'MON';
+    };
+    const abc = numtodate(nowWeekNum);
+    const filterTableData = fullTableData?.[abc];
 
     if (filterBtnState.typeFilter === 'ALLTYPE') {
-      console.log('ALLTYPE');
+      console.log('alltype');
+      setNumbering(filterTableData ? filterTableData.length : 0);
+      setRoutinesTodos(filterTableData || []);
     } else if (filterBtnState.typeFilter === 'ROUTINE') {
-      console.log('ROUTINE');
+      console.log('routine');
+      const filteredRoutine = filterTableData?.filter((el) => el.taskType === 'ROUTINE');
+      setNumbering(filteredRoutine ? filteredRoutine.length : 0);
+      setRoutinesTodos(filteredRoutine || []);
     } else if (filterBtnState.typeFilter === 'TODO') {
-      console.log('TODO');
+      console.log('todo');
+      const filteredTodo = filterTableData?.filter((el) => el.taskType === 'TODO');
+      setNumbering(filteredTodo ? filteredTodo.length : 0);
+      setRoutinesTodos(filteredTodo || []);
     }
+  }, [filterBtnState, fullTableData, nowWeekNum]);
 
-    if (filterBtnState.allWeekRoutine) {
-      console.log('TRUE');
-    } else if (!filterBtnState.allWeekRoutine) {
-      console.log('FALSE');
-    }
-  }, [filterBtnState]);
+  // useEffect(() => {
+  //   const numtodate = (wn: number | null) => {
+  //     if (wn === 1) return 'MON';
+  //     if (wn === 2) return 'TUE';
+  //     if (wn === 3) return 'WED';
+  //     if (wn === 4) return 'THU';
+  //     if (wn === 5) return 'FRI';
+  //     if (wn === 6) return 'SAT';
+  //     if (wn === 0) return 'SUN';
+  //     return 'MON';
+  //   };
+  //   const abc = numtodate(nowWeekNum);
+  //   const filterTableData = fullTableData?.[abc];
+
+  //   if (filterBtnState.allWeekRoutine) {
+  //     console.log('true');
+  //   } else if (!filterBtnState.allWeekRoutine) {
+  //     console.log('false');
+  //   }
+  // }, [filterBtnState, fullTableData, nowWeekNum]);
 
   const handleStatusDesc = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const idx = Number(e.currentTarget.value);
@@ -265,7 +252,12 @@ const ToDoTable = ({
                 if (!el) return null;
                 if (nowWeekNum !== 1) {
                   return (
-                    <YoilWrapper key={uuidv4()} nowWeekNumMatched={false} routinesTodosLen={routinesTodosLen}>
+                    <YoilWrapper
+                      key={uuidv4()}
+                      nowWeekNumMatched={false}
+                      routinesTodosIdx={idx}
+                      routinesTodosLen={routinesTodosLen}
+                    >
                       <button type="button" className="yoil">
                         {' '}
                       </button>
@@ -290,7 +282,12 @@ const ToDoTable = ({
                 if (!el) return null;
                 if (nowWeekNum !== 2) {
                   return (
-                    <YoilWrapper key={uuidv4()} nowWeekNumMatched={false} routinesTodosLen={routinesTodosLen}>
+                    <YoilWrapper
+                      key={uuidv4()}
+                      nowWeekNumMatched={false}
+                      routinesTodosIdx={idx}
+                      routinesTodosLen={routinesTodosLen}
+                    >
                       <button type="button" className="yoil">
                         {' '}
                       </button>
@@ -315,7 +312,12 @@ const ToDoTable = ({
                 if (!el) return null;
                 if (nowWeekNum !== 3) {
                   return (
-                    <YoilWrapper key={uuidv4()} nowWeekNumMatched={false} routinesTodosLen={routinesTodosLen}>
+                    <YoilWrapper
+                      key={uuidv4()}
+                      nowWeekNumMatched={false}
+                      routinesTodosIdx={idx}
+                      routinesTodosLen={routinesTodosLen}
+                    >
                       <button type="button" className="yoil">
                         {' '}
                       </button>
@@ -340,7 +342,12 @@ const ToDoTable = ({
                 if (!el) return null;
                 if (nowWeekNum !== 4) {
                   return (
-                    <YoilWrapper key={uuidv4()} nowWeekNumMatched={false} routinesTodosLen={routinesTodosLen}>
+                    <YoilWrapper
+                      key={uuidv4()}
+                      nowWeekNumMatched={false}
+                      routinesTodosIdx={idx}
+                      routinesTodosLen={routinesTodosLen}
+                    >
                       <button type="button" className="yoil">
                         {' '}
                       </button>
@@ -365,7 +372,12 @@ const ToDoTable = ({
                 if (!el) return null;
                 if (nowWeekNum !== 5) {
                   return (
-                    <YoilWrapper key={uuidv4()} nowWeekNumMatched={false} routinesTodosLen={routinesTodosLen}>
+                    <YoilWrapper
+                      key={uuidv4()}
+                      nowWeekNumMatched={false}
+                      routinesTodosIdx={idx}
+                      routinesTodosLen={routinesTodosLen}
+                    >
                       <button type="button" className="yoil">
                         {' '}
                       </button>
@@ -390,7 +402,12 @@ const ToDoTable = ({
                 if (!el) return null;
                 if (nowWeekNum !== 6) {
                   return (
-                    <YoilWrapper key={uuidv4()} nowWeekNumMatched={false} routinesTodosLen={routinesTodosLen}>
+                    <YoilWrapper
+                      key={uuidv4()}
+                      nowWeekNumMatched={false}
+                      routinesTodosIdx={idx}
+                      routinesTodosLen={routinesTodosLen}
+                    >
                       <button type="button" className="yoil">
                         {' '}
                       </button>
@@ -415,7 +432,12 @@ const ToDoTable = ({
                 if (!el) return null;
                 if (nowWeekNum !== 0) {
                   return (
-                    <YoilWrapper key={uuidv4()} nowWeekNumMatched={false} routinesTodosLen={routinesTodosLen}>
+                    <YoilWrapper
+                      key={uuidv4()}
+                      nowWeekNumMatched={false}
+                      routinesTodosIdx={idx}
+                      routinesTodosLen={routinesTodosLen}
+                    >
                       <button type="button" className="yoil">
                         {' '}
                       </button>

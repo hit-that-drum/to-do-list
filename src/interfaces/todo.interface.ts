@@ -11,6 +11,16 @@ export interface RoutinesTodos {
   statusDesc: string | null;
 }
 
+// export interface TWeekTableData {
+//   MON: RoutinesTodos[];
+//   TUE: RoutinesTodos[];
+//   WED: RoutinesTodos[];
+//   THU: RoutinesTodos[];
+//   FRI: RoutinesTodos[];
+//   SAT: RoutinesTodos[];
+//   SUN: RoutinesTodos[];
+// }
+
 export interface MockDataType {
   day: string;
   id: number;

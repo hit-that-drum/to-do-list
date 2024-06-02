@@ -83,7 +83,7 @@ export const TimeDetailMyDay = styled.div<{ routinesTodosIdx?: number; routinesT
 
 export const YoilWrapper = styled.div<{
   nowWeekNumMatched?: boolean;
-  routinesTodosIdx?: number;
+  routinesTodosIdx: number;
   routinesTodosLen: number;
 }>`
   .yoil {

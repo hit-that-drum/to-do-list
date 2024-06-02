@@ -297,7 +297,7 @@ const mockdata = [
       {
         orderNo: 1,
         taskType: 'ROUTINE',
-        timeType: '',
+        timeType: 'MORNING',
         appointedTime: null,
         description: '아침 운동',
         status: false,
