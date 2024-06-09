@@ -34,7 +34,7 @@ export const ToDoSection = styled.div`
   } */
 `;
 
-export const TimeDetailMyDay = styled.div<{ routinesTodosIdx?: number; routinesTodosLen: number }>`
+export const TimeDetailMyDay = styled.div<{ routinesTodosIdx?: number; routinesTodosLen: number; routinesTodosStatus: boolean }>`
   background-color: #ffffff;
   display: flex;
   width: 390px;
@@ -77,6 +77,8 @@ export const TimeDetailMyDay = styled.div<{ routinesTodosIdx?: number; routinesT
     }
     p {
       margin-left: 3px;
+      color: ${({ routinesTodosStatus }) => (routinesTodosStatus ? 'rgb(178, 182, 187)' : null)};
+      text-decoration: ${({ routinesTodosStatus }) => (routinesTodosStatus ? 'line-through' : null)};
     }
   }
 `;

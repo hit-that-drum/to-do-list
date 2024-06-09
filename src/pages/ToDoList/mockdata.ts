@@ -302,6 +302,24 @@ const mockdata = [
         description: '아침 운동',
         status: false,
         statusDesc: '💪'
+      },
+      {
+        orderNo: 2,
+        taskType: 'ROUTINE',
+        timeType: 'AFTERNOON',
+        appointedTime: null,
+        description: 'I hate you',
+        status: false,
+        statusDesc: ''
+      },
+      {
+        orderNo: 3,
+        taskType: 'ROUTINE',
+        timeType: 'NIGHT',
+        appointedTime: null,
+        description: '달팽이도 넓고 거친 바다 끝에 꿈을 꾼다고',
+        status: false,
+        statusDesc: ''
       }
     ],
     todos: [
@@ -317,11 +335,65 @@ const mockdata = [
       {
         orderNo: 2,
         taskType: 'TODO',
-        timeType: '',
+        timeType: 'AFTERNOON',
         appointedTime: null,
         description: '도서관 가서 책반납&책대여',
         status: false,
         statusDesc: '📚'
+      },
+      {
+        orderNo: 3,
+        taskType: 'TODO',
+        timeType: 'AFTERNOON',
+        appointedTime: null,
+        description: '밀프렙',
+        status: false,
+        statusDesc: '🍱'
+      },
+      {
+        orderNo: 4,
+        taskType: 'TODO',
+        timeType: 'MORNING',
+        appointedTime: null,
+        description: '이불 정리 및 바닥 청소',
+        status: false,
+        statusDesc: '🧹'
+      },
+      {
+        orderNo: 5,
+        taskType: 'TODO',
+        timeType: 'MORNING',
+        appointedTime: null,
+        description: '이불 빨래',
+        status: false,
+        statusDesc: '🧺'
+      },
+      {
+        orderNo: 6,
+        taskType: 'TODO',
+        timeType: 'NIGHT',
+        appointedTime: null,
+        description: '출근가방 싸기',
+        status: false,
+        statusDesc: ''
+      },
+      {
+        orderNo: 7,
+        taskType: 'TODO',
+        timeType: 'NIGHT',
+        appointedTime: null,
+        description: '일기 정리',
+        status: false,
+        statusDesc: ''
+      },
+      {
+        orderNo: 8,
+        taskType: 'TODO',
+        timeType: 'NIGHT',
+        appointedTime: null,
+        description: '가계부 정리',
+        status: false,
+        statusDesc: ''
       }
     ]
   }

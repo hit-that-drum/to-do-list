@@ -55,8 +55,13 @@ const ToDoTable = ({
     if (num === 5) return 'FRI';
     if (num === 6) return 'SAT';
     if (num === 0) return 'SUN';
-    return null;
+    return 'MON';
   };
+
+  // const numToDate = (num: number | null) => {
+  //   const dateNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  //   return num ? dateNames[num % 7] : 'MON';
+  // };
 
   useEffect(() => {
     const weekTableData: TWeekTableData = {
@@ -70,24 +75,12 @@ const ToDoTable = ({
     };
     data.forEach((el) => {
       const weeknum = dayjs(el.day).day();
-      const numtodate = (wn: number | null) => {
-        if (wn === 1) return 'MON';
-        if (wn === 2) return 'TUE';
-        if (wn === 3) return 'WED';
-        if (wn === 4) return 'THU';
-        if (wn === 5) return 'FRI';
-        if (wn === 6) return 'SAT';
-        if (wn === 0) return 'SUN';
-        return 'MON';
-      };
-      const abc = numtodate(weeknum);
-      const def = numToDate(weeknum);
-      // console.log('www', numtodate(weeknum), numToDate(weeknum));
+      const numtodate = numToDate(weeknum);
       if (el.routines) {
-        el.routines.map((routine) => weekTableData[abc].push(routine));
+        el.routines.map((routine) => weekTableData[numtodate].push(routine));
       }
       if (el.todos) {
-        el.todos.map((todo) => weekTableData[abc].push(todo));
+        el.todos.map((todo) => weekTableData[numtodate].push(todo));
       }
     });
     // console.log('weekTableData', weekTableData);
@@ -100,82 +93,37 @@ const ToDoTable = ({
   }, [selectDay]);
 
   useEffect(() => {
-    const numtodate = (wn: number | null) => {
-      if (wn === 1) return 'MON';
-      if (wn === 2) return 'TUE';
-      if (wn === 3) return 'WED';
-      if (wn === 4) return 'THU';
-      if (wn === 5) return 'FRI';
-      if (wn === 6) return 'SAT';
-      if (wn === 0) return 'SUN';
-      return 'MON';
-    };
-    const abc = numtodate(nowWeekNum);
-    setNumbering(tableData ? tableData?.[abc].length : 0);
-    setRoutinesTodos(tableData ? tableData?.[abc] : []);
+    const numtodate = numToDate(nowWeekNum);
+    setNumbering(tableData ? tableData?.[numtodate].length : 0);
+    setRoutinesTodos(tableData ? tableData?.[numtodate] : []);
   }, [nowWeekNum, tableData]);
 
   useEffect(() => {
-    const numtodate = (wn: number | null) => {
-      if (wn === 1) return 'MON';
-      if (wn === 2) return 'TUE';
-      if (wn === 3) return 'WED';
-      if (wn === 4) return 'THU';
-      if (wn === 5) return 'FRI';
-      if (wn === 6) return 'SAT';
-      if (wn === 0) return 'SUN';
-      return 'MON';
-    };
-    const abc = numtodate(nowWeekNum);
-    const filterTableData = fullTableData?.[abc];
+    const numtodate = numToDate(nowWeekNum);
+    const filterTableData = fullTableData?.[numtodate];
     if (filterBtnState.timeFilter === 'ALLTIME') {
-      console.log('alltime');
       setNumbering(filterTableData ? filterTableData.length : 0);
       setRoutinesTodos(filterTableData || []);
     } else if (filterBtnState.timeFilter === 'MORNING') {
-      console.log('morning');
       const filteredMorning = filterTableData?.filter((el) => el.timeType === 'MORNING');
-      console.log('AAA', filteredMorning);
       setNumbering(filteredMorning ? filteredMorning.length : 0);
       setRoutinesTodos(filteredMorning || []);
     } else if (filterBtnState.timeFilter === 'AFTERNOON') {
-      console.log('afternoon');
       const filteredAfternoon = filterTableData?.filter((el) => el.timeType === 'AFTERNOON');
       setNumbering(filteredAfternoon ? filteredAfternoon.length : 0);
       setRoutinesTodos(filteredAfternoon || []);
     } else if (filterBtnState.timeFilter === 'NIGHT') {
-      console.log('night');
       const filteredNight = filterTableData?.filter((el) => el.timeType === 'NIGHT');
       setNumbering(filteredNight ? filteredNight.length : 0);
       setRoutinesTodos(filteredNight || []);
-    }
-  }, [filterBtnState, fullTableData, nowWeekNum]);
-
-  useEffect(() => {
-    const numtodate = (wn: number | null) => {
-      if (wn === 1) return 'MON';
-      if (wn === 2) return 'TUE';
-      if (wn === 3) return 'WED';
-      if (wn === 4) return 'THU';
-      if (wn === 5) return 'FRI';
-      if (wn === 6) return 'SAT';
-      if (wn === 0) return 'SUN';
-      return 'MON';
-    };
-    const abc = numtodate(nowWeekNum);
-    const filterTableData = fullTableData?.[abc];
-
-    if (filterBtnState.typeFilter === 'ALLTYPE') {
-      console.log('alltype');
+    } else if (filterBtnState.typeFilter === 'ALLTYPE') {
       setNumbering(filterTableData ? filterTableData.length : 0);
       setRoutinesTodos(filterTableData || []);
     } else if (filterBtnState.typeFilter === 'ROUTINE') {
-      console.log('routine');
       const filteredRoutine = filterTableData?.filter((el) => el.taskType === 'ROUTINE');
       setNumbering(filteredRoutine ? filteredRoutine.length : 0);
       setRoutinesTodos(filteredRoutine || []);
     } else if (filterBtnState.typeFilter === 'TODO') {
-      console.log('todo');
       const filteredTodo = filterTableData?.filter((el) => el.taskType === 'TODO');
       setNumbering(filteredTodo ? filteredTodo.length : 0);
       setRoutinesTodos(filteredTodo || []);
@@ -230,7 +178,12 @@ const ToDoTable = ({
             const routinesTodosLen = routinesTodos.length - 1;
             if (!el) return null;
             return (
-              <TimeDetailMyDay key={uuidv4()} routinesTodosIdx={idx} routinesTodosLen={routinesTodosLen}>
+              <TimeDetailMyDay
+                key={uuidv4()}
+                routinesTodosIdx={idx}
+                routinesTodosLen={routinesTodosLen}
+                routinesTodosStatus={el.status}
+              >
                 <button className="timedetail" type="button">
                   {el.appointedTime ? <p>{el.appointedTime}</p> : null}
                 </button>
