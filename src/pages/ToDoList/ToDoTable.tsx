@@ -101,32 +101,45 @@ const ToDoTable = ({
   useEffect(() => {
     const numtodate = numToDate(nowWeekNum);
     const filterTableData = fullTableData?.[numtodate];
-    if (filterBtnState.timeFilter === 'ALLTIME') {
-      setNumbering(filterTableData ? filterTableData.length : 0);
-      setRoutinesTodos(filterTableData || []);
-    } else if (filterBtnState.timeFilter === 'MORNING') {
-      const filteredMorning = filterTableData?.filter((el) => el.timeType === 'MORNING');
-      setNumbering(filteredMorning ? filteredMorning.length : 0);
-      setRoutinesTodos(filteredMorning || []);
-    } else if (filterBtnState.timeFilter === 'AFTERNOON') {
-      const filteredAfternoon = filterTableData?.filter((el) => el.timeType === 'AFTERNOON');
-      setNumbering(filteredAfternoon ? filteredAfternoon.length : 0);
-      setRoutinesTodos(filteredAfternoon || []);
-    } else if (filterBtnState.timeFilter === 'NIGHT') {
-      const filteredNight = filterTableData?.filter((el) => el.timeType === 'NIGHT');
-      setNumbering(filteredNight ? filteredNight.length : 0);
-      setRoutinesTodos(filteredNight || []);
-    } else if (filterBtnState.typeFilter === 'ALLTYPE') {
-      setNumbering(filterTableData ? filterTableData.length : 0);
-      setRoutinesTodos(filterTableData || []);
-    } else if (filterBtnState.typeFilter === 'ROUTINE') {
-      const filteredRoutine = filterTableData?.filter((el) => el.taskType === 'ROUTINE');
-      setNumbering(filteredRoutine ? filteredRoutine.length : 0);
-      setRoutinesTodos(filteredRoutine || []);
-    } else if (filterBtnState.typeFilter === 'TODO') {
-      const filteredTodo = filterTableData?.filter((el) => el.taskType === 'TODO');
-      setNumbering(filteredTodo ? filteredTodo.length : 0);
-      setRoutinesTodos(filteredTodo || []);
+    console.log('filterrr', filterBtnState.timeFilter, filterBtnState.typeFilter, filterBtnState.filterType);
+    if (filterBtnState.filterType === 'TIME') {
+      if (filterBtnState.timeFilter === 'ALLTIME') {
+        console.log('ALLTIME');
+        setNumbering(filterTableData ? filterTableData.length : 0);
+        setRoutinesTodos(filterTableData || []);
+      } else if (filterBtnState.timeFilter === 'MORNING') {
+        console.log('MORNING');
+        const filteredMorning = filterTableData?.filter((el) => el.timeType === 'MORNING');
+        setNumbering(filteredMorning ? filteredMorning.length : 0);
+        setRoutinesTodos(filteredMorning || []);
+      } else if (filterBtnState.timeFilter === 'AFTERNOON') {
+        console.log('AFTERNOON');
+        const filteredAfternoon = filterTableData?.filter((el) => el.timeType === 'AFTERNOON');
+        setNumbering(filteredAfternoon ? filteredAfternoon.length : 0);
+        setRoutinesTodos(filteredAfternoon || []);
+      } else if (filterBtnState.timeFilter === 'NIGHT') {
+        console.log('NIGHT');
+        const filteredNight = filterTableData?.filter((el) => el.timeType === 'NIGHT');
+        setNumbering(filteredNight ? filteredNight.length : 0);
+        setRoutinesTodos(filteredNight || []);
+      }
+    } else if (filterBtnState.filterType === 'TYPE') {
+      if (filterBtnState.typeFilter === 'ALLTYPE') {
+        console.log('ALLTYPE');
+        setNumbering(filterTableData ? filterTableData.length : 0);
+        setRoutinesTodos(filterTableData || []);
+      } else if (filterBtnState.typeFilter === 'ROUTINE') {
+        console.log('ROUTINE');
+        const filteredRoutine = filterTableData?.filter((el) => el.taskType === 'ROUTINE');
+        console.log('f', filteredRoutine);
+        setNumbering(filteredRoutine ? filteredRoutine.length : 0);
+        setRoutinesTodos(filteredRoutine || []);
+      } else if (filterBtnState.typeFilter === 'TODO') {
+        console.log('TODO');
+        const filteredTodo = filterTableData?.filter((el) => el.taskType === 'TODO');
+        setNumbering(filteredTodo ? filteredTodo.length : 0);
+        setRoutinesTodos(filteredTodo || []);
+      }
     }
   }, [filterBtnState, fullTableData, nowWeekNum]);
 

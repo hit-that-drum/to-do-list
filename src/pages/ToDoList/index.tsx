@@ -54,19 +54,22 @@ const ToDoList = () => {
   const [filterBtnState, setFilterBtnState] = useState<TfilterBtnState>({
     timeFilter: 'ALLTIME',
     typeFilter: 'ALLTYPE',
-    allWeekRoutine: false
+    allWeekRoutine: false,
+    filterType: 'TIME'
   });
-  const { timeFilter, typeFilter, allWeekRoutine } = filterBtnState;
+  const { timeFilter, typeFilter, allWeekRoutine, filterType } = filterBtnState;
   const now = dayjs();
   const [selectDay, setSelectDay] = useState<number | null>(now.day());
 
   const handleChangeFilter = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const { name } = event.currentTarget;
+    console.log('name', name);
     if (name === 'ALLTIME' || name === 'MORNING' || name === 'AFTERNOON' || name === 'NIGHT') {
       setFilterBtnState((prev) => {
         return {
           ...prev,
-          timeFilter: name
+          timeFilter: name,
+          filterType: 'TIME'
         };
       });
     }
@@ -74,7 +77,8 @@ const ToDoList = () => {
       setFilterBtnState((prev) => {
         return {
           ...prev,
-          typeFilter: name
+          typeFilter: name,
+          filterType: 'TYPE'
         };
       });
     }
@@ -82,7 +86,8 @@ const ToDoList = () => {
       setFilterBtnState((prev) => {
         return {
           ...prev,
-          allWeekRoutine: !allWeekRoutine
+          allWeekRoutine: !allWeekRoutine,
+          filterType: 'ALLWEEK'
         };
       });
     }
@@ -105,7 +110,12 @@ const ToDoList = () => {
             </button>
           </div>
           <div className="routine-table-wrapper">
-            <FilterButtonSection timeFilter={timeFilter} typeFilter={typeFilter} allWeekRoutine={allWeekRoutine}>
+            <FilterButtonSection
+              timeFilter={timeFilter}
+              typeFilter={typeFilter}
+              allWeekRoutine={allWeekRoutine}
+              filterType={filterType}
+            >
               <div className="time-filter-button">
                 {timeFilterButton.map((el) => {
                   return (
