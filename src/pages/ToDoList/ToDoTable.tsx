@@ -143,27 +143,6 @@ const ToDoTable = ({
     }
   }, [filterBtnState, fullTableData, nowWeekNum]);
 
-  // useEffect(() => {
-  //   const numtodate = (wn: number | null) => {
-  //     if (wn === 1) return 'MON';
-  //     if (wn === 2) return 'TUE';
-  //     if (wn === 3) return 'WED';
-  //     if (wn === 4) return 'THU';
-  //     if (wn === 5) return 'FRI';
-  //     if (wn === 6) return 'SAT';
-  //     if (wn === 0) return 'SUN';
-  //     return 'MON';
-  //   };
-  //   const abc = numtodate(nowWeekNum);
-  //   const filterTableData = fullTableData?.[abc];
-
-  //   if (filterBtnState.allWeekRoutine) {
-  //     console.log('true');
-  //   } else if (!filterBtnState.allWeekRoutine) {
-  //     console.log('false');
-  //   }
-  // }, [filterBtnState, fullTableData, nowWeekNum]);
-
   const handleStatusDesc = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const idx = Number(e.currentTarget.value);
     const originStatus = routinesTodos[idx].status;
