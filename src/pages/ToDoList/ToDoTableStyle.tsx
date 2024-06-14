@@ -92,7 +92,6 @@ export const YoilWrapper = styled.div<{
     display: flex;
     margin: 0px 2px;
     flex-direction: column;
-    /* padding: 5px 0px; */
     height: 38px;
     width: 38px;
     align-items: center;
@@ -101,7 +100,6 @@ export const YoilWrapper = styled.div<{
     border-style: solid;
     border-image: initial;
     background-color: ${({ nowWeekNumMatched }) => (nowWeekNumMatched ? 'rgb(255, 255, 255)' : 'rgb(245, 245, 245)')};
-    /* border-color: rgb(38, 222, 129) rgb(38, 222, 129) rgb(237, 239, 240); */
     border-color: rgb(237, 239, 240);
     border-radius: ${({ routinesTodosIdx, routinesTodosLen }) => {
       if (routinesTodosIdx === 0) return `5px 5px 0 0`;
@@ -109,7 +107,7 @@ export const YoilWrapper = styled.div<{
       return '0';
     }};
     border-collapse: collapse;
-  }
+    cursor: ${({ nowWeekNumMatched }) => (nowWeekNumMatched ? 'pointer' : 'default')}
 `;
 
 export const BottomSection = styled.div`

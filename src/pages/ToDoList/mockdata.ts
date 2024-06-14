@@ -176,8 +176,35 @@ const mockdata = [
         taskType: 'ROUTINE',
         timeType: 'MORNING',
         appointedTime: null,
-        description: '지각하지 않기',
-        status: true,
+        description: 'MORNING ROUTINE',
+        status: false,
+        statusDesc: '⏰'
+      },
+      {
+        orderNo: 2,
+        taskType: 'ROUTINE',
+        timeType: 'MORNING',
+        appointedTime: '5:30',
+        description: 'MORNING ROUTINE',
+        status: false,
+        statusDesc: '⏰'
+      },
+      {
+        orderNo: 3,
+        taskType: 'ROUTINE',
+        timeType: 'AFTERNOON',
+        appointedTime: '5:30',
+        description: 'AFTERNOON ROUTINE',
+        status: false,
+        statusDesc: '⏰'
+      },
+      {
+        orderNo: 4,
+        taskType: 'ROUTINE',
+        timeType: 'NIGHT',
+        appointedTime: '5:30',
+        description: 'NIGHT ROUTINE',
+        status: false,
         statusDesc: '⏰'
       }
     ],
@@ -185,47 +212,56 @@ const mockdata = [
       {
         orderNo: 1,
         taskType: 'TODO',
-        timeType: 'NIGHT',
+        timeType: 'MORNING',
         appointedTime: null,
-        description: '일찍 자기',
+        description: 'MORNING TODO',
         status: false,
-        statusDesc: '😴'
+        statusDesc: '💲'
       },
       {
         orderNo: 2,
         taskType: 'TODO',
-        timeType: 'AFTERNOON',
-        appointedTime: '15:00',
-        description: '식당 전화해서 예약하기',
+        timeType: 'MORNING',
+        appointedTime: null,
+        description: 'MORNING TODO',
         status: false,
-        statusDesc: '📊'
+        statusDesc: '✉️'
       },
       {
         orderNo: 3,
         taskType: 'TODO',
-        timeType: null,
+        timeType: 'AFTERNOON',
         appointedTime: null,
-        description: '앱으로 집 구경',
+        description: 'AFTERNOON TODO',
         status: false,
-        statusDesc: '🏠'
+        statusDesc: '🖼️'
       },
       {
         orderNo: 4,
         taskType: 'TODO',
-        timeType: null,
+        timeType: 'AFTERNOON',
         appointedTime: null,
-        description: '4월 일상 정리',
-        status: true,
-        statusDesc: null
+        description: 'AFTERNOON TODO',
+        status: false,
+        statusDesc: '📚'
       },
       {
         orderNo: 5,
         taskType: 'TODO',
-        timeType: null,
+        timeType: 'NIGHT',
         appointedTime: null,
-        description: '4월 독서 정리',
+        description: 'NIGHT TODO',
         status: false,
-        statusDesc: '🫧'
+        statusDesc: '🧚‍'
+      },
+      {
+        orderNo: 6,
+        taskType: 'TODO',
+        timeType: 'NIGHT',
+        appointedTime: null,
+        description: 'NIGHT TODO',
+        status: false,
+        statusDesc: ''
       }
     ]
   },
@@ -236,10 +272,37 @@ const mockdata = [
       {
         orderNo: 1,
         taskType: 'ROUTINE',
-        timeType: '',
+        timeType: 'MORNING',
         appointedTime: null,
-        description: '지각하지 않기',
-        status: true,
+        description: 'MORNING ROUTINE',
+        status: false,
+        statusDesc: '⏰'
+      },
+      {
+        orderNo: 2,
+        taskType: 'ROUTINE',
+        timeType: 'MORNING',
+        appointedTime: '5:30',
+        description: 'MORNING ROUTINE',
+        status: false,
+        statusDesc: '⏰'
+      },
+      {
+        orderNo: 3,
+        taskType: 'ROUTINE',
+        timeType: 'AFTERNOON',
+        appointedTime: '5:30',
+        description: 'AFTERNOON ROUTINE',
+        status: false,
+        statusDesc: '⏰'
+      },
+      {
+        orderNo: 4,
+        taskType: 'ROUTINE',
+        timeType: 'NIGHT',
+        appointedTime: '5:30',
+        description: 'NIGHT ROUTINE',
+        status: false,
         statusDesc: '⏰'
       }
     ],
@@ -247,11 +310,56 @@ const mockdata = [
       {
         orderNo: 1,
         taskType: 'TODO',
-        timeType: '',
+        timeType: 'MORNING',
         appointedTime: null,
-        description: '일찍 자기',
+        description: 'MORNING TODO',
         status: false,
-        statusDesc: '😴'
+        statusDesc: '💲'
+      },
+      {
+        orderNo: 2,
+        taskType: 'TODO',
+        timeType: 'MORNING',
+        appointedTime: null,
+        description: 'MORNING TODO',
+        status: false,
+        statusDesc: '✉️'
+      },
+      {
+        orderNo: 3,
+        taskType: 'TODO',
+        timeType: 'AFTERNOON',
+        appointedTime: null,
+        description: 'AFTERNOON TODO',
+        status: false,
+        statusDesc: '🖼️'
+      },
+      {
+        orderNo: 4,
+        taskType: 'TODO',
+        timeType: 'AFTERNOON',
+        appointedTime: null,
+        description: 'AFTERNOON TODO',
+        status: false,
+        statusDesc: '📚'
+      },
+      {
+        orderNo: 5,
+        taskType: 'TODO',
+        timeType: 'NIGHT',
+        appointedTime: null,
+        description: 'NIGHT TODO',
+        status: false,
+        statusDesc: '🧚‍'
+      },
+      {
+        orderNo: 6,
+        taskType: 'TODO',
+        timeType: 'NIGHT',
+        appointedTime: null,
+        description: 'NIGHT TODO',
+        status: false,
+        statusDesc: ''
       }
     ]
   },
@@ -264,56 +372,92 @@ const mockdata = [
         taskType: 'ROUTINE',
         timeType: 'MORNING',
         appointedTime: null,
-        description: '아침 운동',
+        description: 'MORNING ROUTINE',
         status: false,
-        statusDesc: '💪'
+        statusDesc: '⏰'
+      },
+      {
+        orderNo: 2,
+        taskType: 'ROUTINE',
+        timeType: 'MORNING',
+        appointedTime: '5:30',
+        description: 'MORNING ROUTINE',
+        status: false,
+        statusDesc: '⏰'
+      },
+      {
+        orderNo: 3,
+        taskType: 'ROUTINE',
+        timeType: 'AFTERNOON',
+        appointedTime: '5:30',
+        description: 'AFTERNOON ROUTINE',
+        status: false,
+        statusDesc: '⏰'
+      },
+      {
+        orderNo: 4,
+        taskType: 'ROUTINE',
+        timeType: 'NIGHT',
+        appointedTime: '5:30',
+        description: 'NIGHT ROUTINE',
+        status: false,
+        statusDesc: '⏰'
       }
     ],
     todos: [
       {
         orderNo: 1,
         taskType: 'TODO',
-        timeType: 'AFTERNOON',
+        timeType: 'MORNING',
         appointedTime: null,
-        description: '모리노팡야',
-        status: true,
-        statusDesc: '🥐'
+        description: 'MORNING TODO',
+        status: false,
+        statusDesc: '💲'
       },
       {
         orderNo: 2,
         taskType: 'TODO',
-        timeType: 'AFTERNOON',
+        timeType: 'MORNING',
         appointedTime: null,
-        description: '솜솜뜨개',
-        status: true,
-        statusDesc: '🧶'
+        description: 'MORNING TODO',
+        status: false,
+        statusDesc: '✉️'
       },
       {
         orderNo: 3,
         taskType: 'TODO',
         timeType: 'AFTERNOON',
         appointedTime: null,
-        description: '스터디 모각코 참여',
-        status: true,
-        statusDesc: '📖'
+        description: 'AFTERNOON TODO',
+        status: false,
+        statusDesc: '🖼️'
       },
       {
         orderNo: 4,
         taskType: 'TODO',
-        timeType: 'NIGHT',
+        timeType: 'AFTERNOON',
         appointedTime: null,
-        description: '옥동식 서교점',
+        description: 'AFTERNOON TODO',
         status: false,
-        statusDesc: '🥘'
+        statusDesc: '📚'
       },
       {
         orderNo: 5,
         taskType: 'TODO',
         timeType: 'NIGHT',
         appointedTime: null,
-        description: '헤이주드',
+        description: 'NIGHT TODO',
         status: false,
-        statusDesc: '🍸'
+        statusDesc: '🧚‍'
+      },
+      {
+        orderNo: 6,
+        taskType: 'TODO',
+        timeType: 'NIGHT',
+        appointedTime: null,
+        description: 'NIGHT TODO',
+        status: false,
+        statusDesc: ''
       }
     ]
   },
@@ -326,99 +470,90 @@ const mockdata = [
         taskType: 'ROUTINE',
         timeType: 'MORNING',
         appointedTime: null,
-        description: '아침 운동',
+        description: 'MORNING ROUTINE',
         status: false,
-        statusDesc: '💪'
+        statusDesc: '⏰'
       },
       {
         orderNo: 2,
         taskType: 'ROUTINE',
-        timeType: 'AFTERNOON',
-        appointedTime: null,
-        description: 'I hate you',
+        timeType: 'MORNING',
+        appointedTime: '5:30',
+        description: 'MORNING ROUTINE',
         status: false,
-        statusDesc: ''
+        statusDesc: '⏰'
       },
       {
         orderNo: 3,
         taskType: 'ROUTINE',
-        timeType: 'NIGHT',
-        appointedTime: null,
-        description: '달팽이도 넓고 거친 바다 끝에 꿈을 꾼다고',
+        timeType: 'AFTERNOON',
+        appointedTime: '5:30',
+        description: 'AFTERNOON ROUTINE',
         status: false,
-        statusDesc: ''
+        statusDesc: '⏰'
+      },
+      {
+        orderNo: 4,
+        taskType: 'ROUTINE',
+        timeType: 'NIGHT',
+        appointedTime: '5:30',
+        description: 'NIGHT ROUTINE',
+        status: false,
+        statusDesc: '⏰'
       }
     ],
     todos: [
       {
         orderNo: 1,
         taskType: 'TODO',
-        timeType: '',
+        timeType: 'MORNING',
         appointedTime: null,
-        description: '개인프로젝트 클론코딩',
+        description: 'MORNING TODO',
         status: false,
-        statusDesc: '📖'
+        statusDesc: '💲'
       },
       {
         orderNo: 2,
         taskType: 'TODO',
-        timeType: 'AFTERNOON',
+        timeType: 'MORNING',
         appointedTime: null,
-        description: '도서관 가서 책반납&책대여',
+        description: 'MORNING TODO',
         status: false,
-        statusDesc: '📚'
+        statusDesc: '✉️'
       },
       {
         orderNo: 3,
         taskType: 'TODO',
         timeType: 'AFTERNOON',
         appointedTime: null,
-        description: '밀프렙',
+        description: 'AFTERNOON TODO',
         status: false,
-        statusDesc: '🍱'
+        statusDesc: '🖼️'
       },
       {
         orderNo: 4,
         taskType: 'TODO',
-        timeType: 'MORNING',
+        timeType: 'AFTERNOON',
         appointedTime: null,
-        description: '이불 정리 및 바닥 청소',
+        description: 'AFTERNOON TODO',
         status: false,
-        statusDesc: '🧹'
+        statusDesc: '📚'
       },
       {
         orderNo: 5,
         taskType: 'TODO',
-        timeType: 'MORNING',
+        timeType: 'NIGHT',
         appointedTime: null,
-        description: '이불 빨래',
+        description: 'NIGHT TODO',
         status: false,
-        statusDesc: '🧺'
+        statusDesc: '🧚‍'
       },
       {
         orderNo: 6,
         taskType: 'TODO',
         timeType: 'NIGHT',
         appointedTime: null,
-        description: '출근가방 싸기',
-        status: false,
-        statusDesc: ''
-      },
-      {
-        orderNo: 7,
-        taskType: 'TODO',
-        timeType: 'NIGHT',
-        appointedTime: null,
-        description: '일기 정리',
-        status: false,
-        statusDesc: ''
-      },
-      {
-        orderNo: 8,
-        taskType: 'TODO',
-        timeType: 'NIGHT',
-        appointedTime: null,
-        description: '가계부 정리',
+        description: '바람이 일어나 널 만난 그 순간',
         status: false,
         statusDesc: ''
       }
