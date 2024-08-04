@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import dayjs from 'dayjs';
 import { MockDataType, RoutinesTodos } from '@interfaces/todo.interface';
 import { TfilterBtnState } from '@interfaces/index.interface';
+import TaskCalendar from '../../components/TaskCalendar';
 import ToDoTable from './ToDoTable';
 import Header from '../../components/Header';
 import { ToDoListWrapper, Container, FilterButtonSection, RowTitleSection } from './indexStyle';
@@ -102,6 +103,9 @@ const ToDoList = () => {
       <Header type="to-do-list" />
       <Container>
         <ProfileSection />
+        <div>
+          <TaskCalendar />
+        </div>
         <div className="calendar-filterbtn-wrapper">
           <div className="date-wrapper">
             <div>{`${now.day(1).format('YYYY년 MM월 DD일')} - ${now.day(7).format('YYYY년 MM월 DD일')}`}</div>
